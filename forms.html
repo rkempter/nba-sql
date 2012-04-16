@@ -1,0 +1,171 @@
+<html>
+<head>
+  <title></title>
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+</head>
+<body>
+  <!-- Form for inserting Player -->
+  <form class="form-horizontal">
+    <fieldset>
+      <legend>Insert a player</legend>
+      <div class="control-group">
+        <label class="control-label" for="firstname">First Name</label>
+        <div class="controls">
+          <input type="text" class="input-xlarge" id="firstname">
+          <p class="help-block">Name is required!</p>
+        </div>
+      </div>
+      <div class="control-group">
+        <label class="control-label" for="lastname">Last Name</label>
+        <div class="controls">
+          <input type="text" class="input-xlarge" id="lastname">
+          <p class="help-block">Last name is required!</p>
+        </div>
+      </div>
+      <div class="control-group">
+        <label class="control-label" for="college">College</label>
+        <div class="controls">
+          <input type="text" class="input-xlarge" id="college">
+          <p class="help-block"></p>
+        </div>
+      </div>
+      <div class="control-group">
+        <label class="control-label" for="birthdate">Birthdate</label>
+        <div class="controls">
+          <input type="text" class="input-xlarge" id="birthdate">
+          <p class="help-block">Birthdate is required!</p>
+        </div>
+      </div>
+      <div class="control-group">
+        <label class="control-label" for="weight">Weight</label>
+        <div class="controls">
+          <input type="text" class="input-xlarge" id="weight">
+          <p class="help-block"></p>
+        </div>
+      </div>
+      <div class="control-group">
+        <label class="control-label" for="fheight">Height (Feets, Inches)</label>
+        <div class="controls">
+          <input type="text" class="input-small" id="fheight" placeholder="Feets">
+          <input type="text" class="input-small" id="iheight" placeholder="Inches">
+          <p class="help-block"></p>
+        </div>
+      </div>
+      <div class="form-actions">
+        <button type="submit" class="btn btn-primary">Save changes</button>
+        <button class="btn">Cancel</button>
+      </div>
+    </fieldset>
+  </form>
+
+  <form class="form-horizontal">
+    <fieldset>
+      <legend>Insert a coach</legend>
+      <div class="control-group">
+        <label class="control-label" for="firstname">First name</label>
+        <div class="controls">
+          <input type="text" class="input-xlarge" id="firstname">
+          <p class="help-block">First name is required!</p>
+        </div>
+      </div>
+      <div class="control-group">
+        <label class="control-label" for="lastname">Last name</label>
+        <div class="controls">
+          <input type="text" class="input-xlarge" id="lastname">
+          <p class="help-block">Last name is required</p>
+        </div>
+      </div>
+      <div class="form-actions">
+        <button type="submit" class="btn btn-primary">Save changes</button>
+        <button class="btn">Cancel</button>
+      </div>
+    </fieldset>
+  </form>
+
+  <!-- Insert a new team -->
+
+  <form class="form-horizontal">
+    <fieldset>
+      <legend>Controls Bootstrap supports</legend>
+      <div class="control-group">
+        <label class="control-label" for="name">Team name</label>
+        <div class="controls">
+          <input type="text" class="input-xlarge" id="name">
+          <p class="help-block">Team name is required!</p>
+        </div>
+      </div>
+      <div class="control-group">
+        <label class="control-label" for="location">Location</label>
+        <div class="controls">
+          <input type="text" class="input-xlarge" id="location">
+          <p class="help-block">Location is required!</p>
+        </div>
+      </div>
+      <div class="control-group">
+        <label class="control-label" for="league">League</label>
+        <div class="controls">
+          <select name="league" id="league">
+            <option value="nba">NBA</option>
+            <option value="aba">ABA</option>
+            <option value="ncaa">NCAA</option>
+          </select>
+          <p class="help-block">In addition to freeform text, any HTML5 text-based input appears like so.</p>
+        </div>
+      </div>
+      <div class="form-actions">
+        <button type="submit" class="btn btn-primary">Save changes</button>
+        <button class="btn">Cancel</button>
+      </div>
+    </fieldset>
+  </form>
+
+  <!-- Insert a new statistic -->
+
+  <form class="form-horizontal">
+    <fieldset>
+      <legend>New player season statistic</legend>
+      <div class="control-group">
+        <label class="control-label">Season type</label>
+        <div class="controls">
+          <label class="radio">
+            <input type="radio" name="optionsRadios" id="optionsRadios1" value="regular" checked="">
+            Regular Season
+          </label>
+          <label class="radio">
+            <input type="radio" name="optionsRadios" id="optionsRadios2" value="playoff">
+            Playoff Season
+          </label>
+        </div>
+      </div>
+      <div class="control-group">
+        <label class="control-label" for="year">Year</label>
+        <div class="controls">
+          <input type="text" class="input-xlarge" id="year">
+          <p class="help-block">Year is required!</p>
+        </div>
+      </div>
+      <div class="control-group">
+        <label class="control-label" for="league">League</label>
+        <div class="controls">
+          <input type="text" class="input-xlarge" id="league">
+          <p class="help-block">League is required!</p>
+        </div>
+      </div>
+      <div class="control-group">
+        <label class="control-label" for="input01">Text input</label>
+        <div class="controls">
+          <select name="team" id="team">
+            <!-- Get teams from database -->
+            <option value="boston">Boston</option>
+          </select>
+          <p class="help-block">In addition to freeform text, any HTML5 text-based input appears like so.</p>
+        </div>
+      </div>
+      <div class="form-actions">
+        <button type="submit" class="btn btn-primary">Save changes</button>
+        <button class="btn">Cancel</button>
+      </div>
+    </fieldset>
+  </form>
+</body>
+</html>
