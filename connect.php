@@ -3,14 +3,10 @@
 /**
  * Connection information
  */
-  
-$hostname     = "icoracle.epfl.ch";
-$port         = 1521;
-$service_name = "srso4.epfl.ch";
-$username     = "DB2012_G11";
-$password     = "DB2012_G11";
 
-$db = "(DESCRIPTION=(ADDRESS_LIST = (ADDRESS = (PROTOCOL = TCP)(HOST = icoracle.epfl.ch)(PORT = 1521)))(CONNECT_DATA=(SERVICE_NAME = srso4.epfl.ch)))";
+$hostname = 'localhost'; // Use remixblog.ch:3307 to connect from local computer
+$username = 'web313';
+$pw = 'steve04';
 
 /**
  * Create connection to database
@@ -18,16 +14,13 @@ $db = "(DESCRIPTION=(ADDRESS_LIST = (ADDRESS = (PROTOCOL = TCP)(HOST = icoracle.
  * Use of oci_connect for a non-persistant connection
  */
 
-$connection = oci_connect($username, $password, $db);
-
-if (!$connection) {
-    $e = oci_error();
-    trigger_error(htmlentities($e['message'], ENT_QUOTES), E_USER_ERROR);
-} else {
-  echo "Connected to Database";
+$link = mysql_connect($hostname, $username, $pw);
+if (!$link) {
+    die('Could not connect: ' . mysql_error());
 }
+echo 'Connected successfully';
 
-oci_close($connection);
+mysql_close($link);
 
 $sql_query1 = "
   SELECT p.firstname, p.lastName
