@@ -27,7 +27,7 @@ $sql_query1 = "
   FROM Coach c, Player p
   WHERE p.firstname = c.firstname AND
         p.lastname = c.lastname 
-";
+"; // Working, checked!!
 $sql_query2 = "
   SELECT PlayerExt.firstName, PlayerExt.lastName
   FROM (
@@ -49,11 +49,13 @@ $sql_query2 = "
 $sql_query3 = "
   SELECT college
   FROM Player
+  WHERE college IS NOT NULL
   GROUP BY college
-  HAVING COUNT(*) <= (SELECT COUNT(*)
-                      FROM Player
-                      GROUP BY college)
-";
+  HAVING COUNT(*) >= (SELECT MAX(t1.cnt) FROM
+                       (SELECT college, Count(college) AS cnt
+                       FROM Player
+                       GROUP BY college) AS t1)
+"; // Working, checked!
 $sql_query4 = "
   SELECT c1.lastName, c1.firstName
   FROM Coach c1, CoachSeason s1, CoachSeason s2
