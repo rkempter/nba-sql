@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>NBA Statistics</title>
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+      <div class="container">
+        <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </a>
+        <a class="brand" href="./index.html">NBA Project</a>
+        <div class="nav-collapse">
+          <ul class="nav">
+            <li class="active">
+              <a href="./index.php">Home</a>
+            </li>
+            <li class="">
+              <a href="file.html">Search for Keyword</a>
+            </li>
+            <li class="">
+              <a href="insert_data.html">Insert elements</a>
+            </li>
+            <li class="dropdown">
+              <a class="dropdown-toggle" data-toggle="dropdown" href="#">Deliverable 2 <b class="caret"></b></a>
+              <ul class="dropdown-menu">
+                <li><a href="query_a.html">Query a</a></li>
+                <li><a href="query_b.html">Query b</a></li>
+                <li><a href="query_c.html">Query c</a></li>
+                <li><a href="query_d.html">Query d</a></li>
+                <li><a href="query_e.html">Query e</a></li>
+                <li><a href="query_f.html">Query f</a></li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <header>
+    <h1></h1>
+  </header>
+  <section class="container content">
+    <ul class="nav nav-tabs">
+      <li class="active"><a href="#player" data-toggle="tab">Insert Player</a></li>
+      <li><a href="#coach" data-toggle="tab">Insert Coach</a></li>
+      <li><a href="#team" data-toggle="tab">Insert Team</a></li>
+      <li><a href="#draft" data-toggle="tab">Insert Draft</a></li>
+      <li><a href="#allstar" data-toggle="tab">Insert Allstar</a></li>
+      <li><a href="#p_stat" data-toggle="tab">Insert P. Stats</a></li>
+      <li><a href="#c_stat" data-toggle="tab">Insert C. Stats</a></li>
+      <li><a href="#t_stat" data-toggle="tab">Insert T. Stats</a></li>
+    </ul>
+    <div class="tab-content">
+      <div class="tab-pane active" id="player">
+        <form class="form-horizontal">
+          <fieldset>
+            <legend>Insert a player</legend>
+            <div class="control-group">
+              <label class="control-label" for="firstname">First Name</label>
+              <div class="controls">
+                <input type="text" class="input-xlarge" id="firstname">
+                <p class="help-block">Name is required!</p>
+              </div>
+            </div>
+            <div class="control-group">
+              <label class="control-label" for="lastname">Last Name</label>
+              <div class="controls">
+                <input type="text" class="input-xlarge" id="lastname">
+                <p class="help-block">Last name is required!</p>
+              </div>
+            </div>
+            <div class="control-group">
+              <label class="control-label" for="college">College</label>
+              <div class="controls">
+                <input type="text" class="input-xlarge" id="college">
+                <p class="help-block"></p>
+              </div>
+            </div>
+            <div class="control-group">
+              <label class="control-label" for="birthdate">Birthdate</label>
+              <div class="controls">
+                <input type="text" class="input-xlarge" id="birthdate">
+                <p class="help-block">Birthdate is required!</p>
+              </div>
+            </div>
+            <div class="control-group">
+              <label class="control-label" for="weight">Weight</label>
+              <div class="controls">
+                <input type="text" class="input-xlarge" id="weight">
+                <p class="help-block"></p>
+              </div>
+            </div>
+            <div class="control-group">
+              <label class="control-label" for="fheight">Height (Feets, Inches)</label>
+              <div class="controls">
+                <input type="text" class="input-small" id="fheight" placeholder="Feets">
+                <input type="text" class="input-small" id="iheight" placeholder="Inches">
+                <p class="help-block"></p>
+              </div>
+            </div>
+            <div class="form-actions">
+              <button type="submit" class="btn btn-primary">Save changes</button>
+              <button class="btn">Cancel</button>
+            </div>
+          </fieldset>
+        </form>
+      </div>
+      <!-- Coach Tab -->
+      <div class="tab-pane" id="coach">
+        <form class="form-horizontal">
+          <fieldset>
+            <legend>Insert a coach</legend>
+            <div class="control-group">
+              <label class="control-label" for="firstname">First name</label>
+              <div class="controls">
+                <input type="text" class="input-xlarge" id="firstname">
+                <p class="help-block">First name is required!</p>
+              </div>
+            </div>
+            <div class="control-group">
+              <label class="control-label" for="lastname">Last name</label>
+              <div class="controls">
+                <input type="text" class="input-xlarge" id="lastname">
+                <p class="help-block">Last name is required</p>
+              </div>
+            </div>
+            <div class="form-actions">
+              <button type="submit" class="btn btn-primary">Save changes</button>
+              <button class="btn">Cancel</button>
+            </div>
+          </fieldset>
+        </form>
+      </div>
+      <div class="tab-pane" id="team">
+        <form class="form-horizontal">
+          <fieldset>
+            <legend>Controls Bootstrap supports</legend>
+            <div class="control-group">
+              <label class="control-label" for="name">Team name</label>
+              <div class="controls">
+                <input type="text" class="input-xlarge" id="name">
+                <p class="help-block">Team name is required!</p>
+              </div>
+            </div>
+            <div class="control-group">
+              <label class="control-label" for="location">Location</label>
+              <div class="controls">
+                <input type="text" class="input-xlarge" id="location">
+                <p class="help-block">Location is required!</p>
+              </div>
+            </div>
+            <div class="control-group">
+              <label class="control-label" for="league">League</label>
+              <div class="controls">
+                <select name="league" id="league">
+                  <option value="nba">NBA</option>
+                  <option value="aba">ABA</option>
+                  <option value="ncaa">NCAA</option>
+                </select>
+                <p class="help-block">In addition to freeform text, any HTML5 text-based input appears like so.</p>
+              </div>
+            </div>
+            <div class="form-actions">
+              <button type="submit" class="btn btn-primary">Save changes</button>
+              <button class="btn">Cancel</button>
+            </div>
+          </fieldset>
+        </form>
+      </div>
+      <div class="tab-pane" id="draft">
+        ...
+      </div>
+      <div class="tab-pane" id="allstar">
+        ...
+      </div>
+      <div class="tab-pane" id="p_stat">
+        <form class="form-horizontal">
+          <fieldset>
+            <legend>New player season statistic</legend>
+            <div class="control-group">
+              <label class="control-label">Season type</label>
+              <div class="controls">
+                <label class="radio">
+                  <input type="radio" name="optionsRadios" id="optionsRadios1" value="regular" checked="">
+                  Regular Season
+                </label>
+                <label class="radio">
+                  <input type="radio" name="optionsRadios" id="optionsRadios2" value="playoff">
+                  Playoff Season
+                </label>
+              </div>
+            </div>
+            <div class="control-group">
+              <label class="control-label" for="year">Year</label>
+              <div class="controls">
+                <input type="text" class="input-xlarge" id="year">
+                <p class="help-block">Year is required!</p>
+              </div>
+            </div>
+            <div class="control-group">
+              <label class="control-label" for="league">League</label>
+              <div class="controls">
+                <input type="text" class="input-xlarge" id="league">
+                <p class="help-block">League is required!</p>
+              </div>
+            </div>
+            <div class="control-group">
+              <label class="control-label" for="input01">Text input</label>
+              <div class="controls">
+                <select name="team" id="team">
+                  <!-- Get teams from database -->
+                  <option value="boston">Boston</option>
+                </select>
+                <p class="help-block">In addition to freeform text, any HTML5 text-based input appears like so.</p>
+              </div>
+            </div>
+            <div class="form-actions">
+              <button type="submit" class="btn btn-primary">Save changes</button>
+              <button class="btn">Cancel</button>
+            </div>
+          </fieldset>
+        </form>
+      </div>
+      <div class="tab-pane" id="c_stat">
+        ...
+      </div>
+      <div class="tab-pane" id="t_stat">
+        ...
+      </div>
+    </div>
+
+
+  </section>
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+</body>
+</html>
