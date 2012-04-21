@@ -10,49 +10,57 @@ $type = $_REQUEST['type'];
 
 switch ($type) {
   case 'coach':
-    $dbconnection = new DB_Class('Coach');
+    $table = 'Coach';
     $query = "Insert Into Coach";
-    $result = $dbconnection->insert($query);
-    if(!$result)
-      return false;
-    $dbconnection->close_connection();
-    return $result;
     break;
   case 'player':
-      
+    $table = 'Player';
+    // Put insert query here
     break;
 
   case 'team':
-    # code...
+    $table = 'Team';
+    // Put insert query here
     break;
   
   case 'draft':
-    # code...
+    $table = 'Draft';
+    // Put insert query here
     break;
 
   case 'allstar':
-    # code...
+    $table = 'Allstar';
+    // Put insert query here
     break;
 
   case 'p_stat':
-    # code...
+    $table = 'P_Stat';
+    // Put insert query here
     break;
 
   case 'c_stat':
-    # code...
+    $table = 'C_Stat';
+    // Put insert query here
     break;
 
   case 't_stat':
-    # code...
+    $table = 'T_Stat';
+    // Put insert query here
     break;
 
   default:
-    # code...
+    return 'Error!'
     break;
 }
 
-
-
+if($table && $query) {
+  $connection = new DB_Class($table);
+  $result = $connection->insert($query);
+  if (!$result) {
+    return false;
+  }
+  $connection->close_connection();
+}
 
 
  ?>
