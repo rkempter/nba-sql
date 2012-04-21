@@ -9,9 +9,11 @@ include('dbclass.php');
 $type = $_REQUEST['type'];
 
 switch ($type) {
-  case 'coach':
-    $table = 'Coach';
-    $query = "Insert Into Coach";
+  case 'Coach':
+    $table = $type;
+    $firstname = $_POST['firstname'];
+    $lastname = $_POST['lastname'];
+    $query = 'INSERT INTO Coach (firstName, lastName) VALUES ('.$firstname.', '.$lastname.')';
     break;
   case 'player':
     $table = 'Player';
@@ -49,11 +51,12 @@ switch ($type) {
     break;
 
   default:
-    return 'Error!'
+    return 'Error!';
     break;
 }
 
 if($table && $query) {
+  echo $query;
   $connection = new DB_Class($table);
   $result = $connection->insert($query);
   if (!$result) {

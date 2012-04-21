@@ -26,14 +26,14 @@ class DB_Class
    * Insert row into database
    */
   function insert($sql) {
-    return mysql_query($sql, $this->db) or die("Invalid query: " . mysql_error()());
+    return mysql_query($sql, $this->db) or die("Invalid query: " . mysql_error());
   }
 
   /**
    * Send query to the database
    */
   function query($sql) {
-    $result = mysql_query($sql, $this->db) or die("Invalid query: " . mysql_error()());
+    $result = mysql_query($sql, $this->db) or die("Invalid query: " . mysql_error());
     return $result;
   }
 
