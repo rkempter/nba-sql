@@ -21,7 +21,7 @@
             <li class="dropdown">
               <a class="dropdown-toggle" data-toggle="dropdown" href="#">Deliverable 2 <b class="caret"></b></a>
               <ul class="dropdown-menu">
-                <li><a href="query_a.html">Query a</a></li>
+                <li><a href="query_2_a.php">Query a</a></li>
                 <li><a href="query_b.html">Query b</a></li>
                 <li><a href="query_c.html">Query c</a></li>
                 <li><a href="query_d.html">Query d</a></li>
