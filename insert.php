@@ -7,17 +7,32 @@ include('dbclass.php');
  */
 
 $type = $_REQUEST['type'];
+$table = "usr_web313_4";
 
 switch ($type) {
   case 'Coach':
-    $table = $type;
+    $cid = $_POST['cid'];
     $firstname = $_POST['firstname'];
     $lastname = $_POST['lastname'];
-    $query = 'INSERT INTO Coach (firstName, lastName) VALUES ('.$firstname.', '.$lastname.')';
+    $query = "INSERT INTO Coach (firstname,lastname) VALUES('Renato','kempter')";
+    //$query = 'INSERT INTO Coach(firstName, lastName) VALUES ('.$firstname.', '.$lastname.')';
     break;
   case 'player':
     $table = 'Player';
-    // Put insert query here
+    $pid = $_POST['pid'];
+    $firstname = $_POST['firstName'];
+    $lastname = $_POST['lastName'];
+    $college = $_POST['college'];
+    $birthdate = $_POST['birthdate'];
+    $weight = $_POST['weight'];
+    $heightInches = $_POST['heightInches'];
+    $heightFeet = $_POST['heightFeet'];
+    $position = $_POST['position'];
+    $firstSeason = $_POST['firstSeason'];
+    $lastSeason = $_POST['lastSeason'];
+    $query = "INSERT INTO Player 
+              (pid, firstName, lastName, college, birthdata, position, firstSeason, lastSeason, heightFeet, heightInches, weight)
+              VALUES (".$pid.", ".$firstName.", ".$lastName.", ".$position.", ".$firstSeason.", ".$lastSeason.", ".$heightFeet.", ".$heightInches.", ".$weight.")";
     break;
 
   case 'team':
@@ -55,15 +70,14 @@ switch ($type) {
     break;
 }
 
-if($table && $query) {
-  echo $query;
+if($query) {
   $connection = new DB_Class($table);
+  $connection->connect();
   $result = $connection->insert($query);
   if (!$result) {
     return false;
   }
   $connection->close_connection();
 }
-
 
  ?>
