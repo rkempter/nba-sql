@@ -8,18 +8,21 @@ class DB_Class
   
   VAR $db;
 
-  /**
-   * Connect to database and to selected table
-   */
-  function __construct($dbname)
+  function __construct()
   {
+  }
+
+  /**
+   * Build connection to mysql-Server and select database
+   */
+  function connect() {
     $this->db = mysql_connect('localhost', 'web313', 'steve04');
 
     if (!$this->db) {
       die('Could not connect: ' . mysql_error());
     }
 
-    mysql_select_db($dbname, $this->db) or die('Could not select database');
+    mysql_select_db('usr_web313_4', $this->db) or die('Could not select database');
   }
 
   /**
