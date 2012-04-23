@@ -72,10 +72,24 @@
   <script src="js/bootstrap.min.js"></script>
   <script>
     $(document).ready(function() {
+      /** When coming back from other page **/
+      var hash = window.location.hash.slice(1);
+
+      console.log(hash);
+      $.ajax({
+        type: 'POST',
+        url: 'search_keyword.php',
+        data: { keyword: hash },
+        success: function(data) {
+          $('#data').html(data);
+          console.log('Load was performed.');
+        }
+      });
+
+      /** Click on submit **/
       $('#btn-search').click(function(e) {
-        console.log('Klick');
         if($('#keyword').val()) {
-          console.log('Keyword: '+$('#keyword').val());
+          window.location.hash = $('#keyword').val();
           $.ajax({
             type: 'POST',
             url: 'search_keyword.php',
