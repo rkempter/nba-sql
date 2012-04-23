@@ -40,6 +40,11 @@ class DB_Class
     return $result;
   }
 
+  function count_results($sql) {
+    $result = $this->query($sql);
+    return mysql_num_rows($result);
+  } 
+
   /**
    * Returns array with rows of results
    */
@@ -48,6 +53,20 @@ class DB_Class
     $result = $this->query($sql);
 
     while($row = mysql_fetch_array($result, MYSQL_NUM)) {
+      $data[] = $row;
+    }
+
+    return $data;
+  }
+
+  /**
+  * Fetch results in associative form
+  */
+  function fetch_assoc($sql) {
+    $data = array();
+    $result = $this->query($sql);
+
+    while($row = mysql_fetch_assoc($result)) {
       $data[] = $row;
     }
 
