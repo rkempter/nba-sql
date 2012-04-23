@@ -52,19 +52,17 @@
       <p class="lead">Print  the last  and first name  of  players/coaches who participated  in  NBA both  as  a player  and as  a 
 coach.</p>
       <pre>
-SELECT p.firstname, p.lastName
+SELECT p.firstName, p.lastName
 FROM Coach c, Player p
-WHERE p.firstname = c.firstname AND
-      p.lastname = c.lastname 
+WHERE p.pid = c.cid 
       </pre>
     </header>
     <?php $connection = new DB_Class(); ?>
     <?php $connection->connect() ?>
     <?php $query = "
-                    SELECT p.firstname, p.lastName
+                    SELECT p.firstName, p.lastName
                     FROM Coach c, Player p
-                    WHERE p.firstname = c.firstname AND
-                          p.lastname = c.lastname ";  ?>
+                    WHERE p.pid = c.cid";  ?>
     <?php $data = $connection->fetch($query); ?>
     <table class="table table-striped">
       <thead>
@@ -79,7 +77,7 @@ WHERE p.firstname = c.firstname AND
           <td><?php echo $row[0]; ?></td>
           <td><?php echo $row[1]; ?></td>
         </tr>
-      <?php endforeach ?>
+      <?php endforeach; ?>
       </tbody>
     </table>
     <?php $connection->close_connection(); ?>
