@@ -22,7 +22,7 @@
               <a href="./index.php">Home</a>
             </li>
             <li class="">
-              <a href="file.html">Search for Keyword</a>
+              <a href="search.php">Search for Keyword</a>
             </li>
             <li class="">
               <a href="insert_data.html">Insert elements</a>

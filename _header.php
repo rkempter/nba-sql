@@ -22,11 +22,11 @@
               <a class="dropdown-toggle" data-toggle="dropdown" href="#">Deliverable 2 <b class="caret"></b></a>
               <ul class="dropdown-menu">
                 <li><a href="query_2_a.php">Query a</a></li>
-                <li><a href="query_b.html">Query b</a></li>
-                <li><a href="query_c.html">Query c</a></li>
-                <li><a href="query_d.html">Query d</a></li>
-                <li><a href="query_e.html">Query e</a></li>
-                <li><a href="query_f.html">Query f</a></li>
+                <li><a href="query_2_b.php">Query b</a></li>
+                <li><a href="query_2_c.php">Query c</a></li>
+                <li><a href="query_2_d.php">Query d</a></li>
+                <li><a href="query_2_e.php">Query e</a></li>
+                <li><a href="query_2_f.php">Query f</a></li>
               </ul>
             </li>
           </ul>
