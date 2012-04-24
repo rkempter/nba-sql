@@ -74,11 +74,11 @@
       <tbody>
       <?php foreach ($data as $row): ?>
         <tr>
-          <td><a href="#" class="player-link" data-id="<?php echo $row[0]; ?>" data-task="more"><?php echo $row[0]; ?></a></td>
+          <td><a href="search_coach.php?id=<?php echo $row[0]; ?>" class="player-link" data-id="<?php echo $row[0]; ?>" data-task="more"><?php echo $row[0]; ?></a></td>
           <td><?php echo $row[1]; ?></td>
           <td><?php echo $row[2]; ?></td>
           <td><a href="#" class="player-link" data-id="<?php echo $row[0]; ?>" data-task="remove"><i class="icon-remove"></i></a></td>
-          <td><a href="#" class="player-link" data-id="<?php echo $row[0]; ?>" data-task="more"><i class="icon-plus"></i></a></td>
+          <td><a href="search_coach.php?id=<?php echo $row[0]; ?>" class="player-link" data-id="<?php echo $row[0]; ?>" data-task="more"><i class="icon-plus"></i></a></td>
         </tr>
       <?php endforeach; ?>
       </tbody>
@@ -110,11 +110,11 @@
       <tbody>
       <?php foreach ($data as $row): ?>
         <tr>
-          <td><a href="#" class="player-link" data-id="<?php echo $row[0]; ?>" data-task="more"><?php echo $row[0]; ?></a></td>
+          <td><a href="search_team.php?id=<?php echo $row[0]; ?>" class="player-link" data-id="<?php echo $row[0]; ?>" data-task="more"><?php echo $row[0]; ?></a></td>
           <td><?php echo $row[1]; ?></td>
           <td><?php echo $row[2]; ?></td>
           <td><?php echo $row[3]; ?></td>
-          <td><a href="#" class="player-link" data-id="<?php echo $row[0]; ?>" data-task="more"><i class="icon-plus"></i></a></td>
+          <td><a href="search_team.php?id=<?php echo $row[0]; ?>" class="player-link" data-id="<?php echo $row[0]; ?>" data-task="more"><i class="icon-plus"></i></a></td>
         </tr>
       <?php endforeach; ?>
       </tbody>
