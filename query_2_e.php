@@ -50,20 +50,39 @@
     <header class="jumbotron subhead" id="overview">
       <h1>Query e, Deliverable 2</h1>
       <p class="lead">Compute the highest scoring and lowest  scoring player  for each  season.</p>
+      <h2>Max</h2>
       <pre>
-SELECT p.firstname, p.lastName
-FROM Coach c, Player p
-WHERE p.firstname = c.firstname AND
-      p.lastname = c.lastname 
+ SELECT p.firstName, p.lastName, s.year
+  FROM Player AS p, RegSeason AS s
+  WHERE p.pid = s.pid
+  GROUP BY s.year DESC, s.pts
+  HAVING s.pts >= ALL ( SELECT pts
+                          FROM RegSeason
+                          WHERE year = s.year)
+
+
+      </pre>
+      <h2>Min</h2>
+      <pre>
+SELECT p.firstName, p.lastName, s.year
+  FROM Player AS p, RegSeason AS s
+  WHERE p.pid = s.pid
+  GROUP BY s.year DESC, s.pts
+  HAVING s.pts <= ALL ( SELECT pts
+                          FROM RegSeason
+                          WHERE year = s.year)
       </pre>
     </header>
     <?php $connection = new DB_Class(); ?>
     <?php $connection->connect() ?>
     <?php $query = "
-                    SELECT p.firstname, p.lastName
-                    FROM Coach c, Player p
-                    WHERE p.firstname = c.firstname AND
-                          p.lastname = c.lastname ";  ?>
+                      SELECT p.firstName, p.lastName, s.year
+  FROM Player AS p, RegSeason AS s
+  WHERE p.pid = s.pid
+  GROUP BY s.year, s.score
+  HAVING s.score >= ALL ( SELECT score
+                          FROM RegSeason
+                          WHERE year = s.year) ";  ?>
     <?php $data = $connection->fetch($query); ?>
     <table class="table table-striped">
       <thead>

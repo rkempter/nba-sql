@@ -51,19 +51,43 @@
       <h1>Query d, Deliverable 2</h1>
       <p class="lead">Print the names of  coaches who participated  in  both  leagues (NBA  and ABA).</p>
       <pre>
-SELECT p.firstname, p.lastName
-FROM Coach c, Player p
-WHERE p.firstname = c.firstname AND
-      p.lastname = c.lastname 
+ SELECT PlayerExt.firstName, PlayerExt.lastName
+   FROM (
+     SELECT p1.firstName, p1.lastName, RegSeason.year
+     FROM Player p1
+     INNER JOIN RegSeason
+     ON p1.pid=RegSeason.pid
+     GROUP BY p1.pid) AS PlayerExt ,(
+     SELECT c1.firstName, c1.lastName, CoachSeason.year
+     FROM Coach c1
+     INNER JOIN CoachSeason
+     ON c1.cid=CoachSeason.cid
+     GROUP BY c1.cid) AS CoachExt
+   WHERE 
+     CoachExt.year = PlayerExt.year AND 
+     PlayerExt.firstname = CoachExt.firstname AND
+     PlayerExt.lastname = CoachExt.lastname
       </pre>
     </header>
     <?php $connection = new DB_Class(); ?>
     <?php $connection->connect() ?>
     <?php $query = "
-                    SELECT p.firstname, p.lastName
-                    FROM Coach c, Player p
-                    WHERE p.firstname = c.firstname AND
-                          p.lastname = c.lastname ";  ?>
+                    SELECT PlayerExt.firstName, PlayerExt.lastName
+                      FROM (
+                        SELECT p1.firstName, p1.lastName, RegSeason.year
+                        FROM Player p1
+                        INNER JOIN RegSeason
+                        ON p1.pid=RegSeason.pid
+                        GROUP BY p1.pid) AS PlayerExt ,(
+                        SELECT c1.firstName, c1.lastName, CoachSeason.year
+                        FROM Coach c1
+                        INNER JOIN CoachSeason
+                        ON c1.cid=CoachSeason.cid
+                        GROUP BY c1.cid) AS CoachExt
+                      WHERE 
+                        CoachExt.year = PlayerExt.year AND 
+                        PlayerExt.firstname = CoachExt.firstname AND
+                        PlayerExt.lastname = CoachExt.lastname ";  ?>
     <?php $data = $connection->fetch($query); ?>
     <table class="table table-striped">
       <thead>
