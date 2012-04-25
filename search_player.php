@@ -157,8 +157,8 @@
               <?php foreach ($data as $row): ?>
               <tr>
                 <td><?php echo $row['league'] ?></td>
-                <td><?php echo $row['gp'] ?></td>
-                <td><?php echo $row['min'] ?></td>
+                <td><?php echo $row['GP'] ?></td>
+                <td><?php echo $row['minutes'] ?></td>
                 <td><?php echo $row['pts'] ?></td>
                 <td><?php echo $row['dreb'] ?></td>
                 <td><?php echo $row['oreb'] ?></td>
