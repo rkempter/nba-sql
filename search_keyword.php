@@ -88,9 +88,9 @@
   <!-- Search for Team info -->
   <div class="tab-pane" id="team">
     
-    <?php $query = "SELECT t.tshort, t.location, t.name, t.league
+    <?php $query = "SELECT t.tid, t.location, t.name, t.league
                     FROM Team t
-                    WHERE t.tshort LIKE '%".$keyword."%'
+                    WHERE t.tid LIKE '%".$keyword."%'
                     OR t.location LIKE '%".$keyword."%' 
                     OR t.name LIKE  '%".$keyword."%' ";  ?>
     <?php $data = $connection->fetch($query); ?>

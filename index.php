@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-
 <html>
 <head>
   <title>NBA Statistics</title>
   <link rel="stylesheet" href="css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
   <div class="navbar navbar-fixed-top">
@@ -21,20 +21,20 @@
               <a href="./index.php">Home</a>
             </li>
             <li class="">
-              <a href="file.html">Search for Keyword</a>
+              <a href="search.php">Search for Keyword</a>
             </li>
             <li class="">
-              <a href="file.html">Insert elements</a>
+              <a href="insert_data.html">Insert elements</a>
             </li>
             <li class="dropdown">
               <a class="dropdown-toggle" data-toggle="dropdown" href="#">Deliverable 2 <b class="caret"></b></a>
               <ul class="dropdown-menu">
-                <li><a href="query_a.html">Query a</a></li>
-                <li><a href="query_b.html">Query b</a></li>
-                <li><a href="query_c.html">Query c</a></li>
-                <li><a href="query_d.html">Query d</a></li>
-                <li><a href="query_e.html">Query e</a></li>
-                <li><a href="query_f.html">Query f</a></li>
+                <li><a href="query_2_a.php">Query a</a></li>
+                <li><a href="query_2_b.php">Query b</a></li>
+                <li><a href="query_2_c.php">Query c</a></li>
+                <li><a href="query_2_d.php">Query d</a></li>
+                <li><a href="query_2_e.php">Query e</a></li>
+                <li><a href="query_2_f.php">Query f</a></li>
               </ul>
             </li>
           </ul>
@@ -42,9 +42,20 @@
       </div>
     </div>
   </div>
-  <header>
-    <h1></h1>
-  </header>
+  <div class="container">
+    <div class="row">
+      <div class="span12">
+        <header class="jumbotron subhead">
+          <div class="inner">
+            <h1>Project Introduction to databases</h1>
+            <p>L&eacute;o Evequoz, Renato Kempter</p>
+            <p>Deliverable 2: 29.04.2012</p>
+            <p>Navigate through the menu to try out the different features of this project.</p>
+          </div>
+        </header>
+      </div>
+    </div>
+  </div>
 <script src="js/bootstrap.min.js"></script>
 </body>
 </html>

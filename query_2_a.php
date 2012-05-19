@@ -52,17 +52,26 @@
       <p class="lead">Print  the last  and first name  of  players/coaches who participated  in  NBA both  as  a player  and as  a 
 coach.</p>
       <pre>
-SELECT p.firstName, p.lastName
-FROM Coach c, Player p
-WHERE p.pid = c.cid 
+SELECT Distinct p.firstname, p.lastname FROM Player p, RegSeason rs
+WHERE p.pid = rs.pid AND
+      rs.league = 'N' AND
+      p.pid IN (SELECT cs.cid FROM CoachSeason cs, TeamStat ts
+                WHERE cs.tid = ts.tid AND
+                      cs.year = ts.year AND
+                      ts.league = 'N')
       </pre>
     </header>
     <?php $connection = new DB_Class(); ?>
     <?php $connection->connect() ?>
     <?php $query = "
-                    SELECT p.firstName, p.lastName
-                    FROM Coach c, Player p
-                    WHERE p.pid = c.cid";  ?>
+SELECT Distinct p.firstname, p.lastname FROM Player p, RegSeason rs
+WHERE p.pid = rs.pid AND
+      rs.league = 'N' AND
+      p.pid IN (SELECT cs.cid FROM CoachSeason cs, TeamStat ts
+                WHERE cs.tid = ts.tid AND
+                      cs.year = ts.year AND
+                      ts.league = 'N')";  ?>
+    <p><?php echo $connection->count_results($query); ?> results found.</p>
     <?php $data = $connection->fetch($query); ?>
     <table class="table table-striped">
       <thead>

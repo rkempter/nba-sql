@@ -31,9 +31,9 @@
               <a class="dropdown-toggle" data-toggle="dropdown" href="#">Deliverable 2 <b class="caret"></b></a>
               <ul class="dropdown-menu">
                 <li><a href="query_2_a.php">Query a</a></li>
-                <li><a href="query_2_b.php">Query b</a></li>
+                <li class="active"><a href="query_2_b.php">Query b</a></li>
                 <li><a href="query_2_c.php">Query c</a></li>
-                <li class="active"><a href="query_2_d.php">Query d</a></li>
+                <li><a href="query_2_d.php">Query d</a></li>
                 <li><a href="query_2_e.php">Query e</a></li>
                 <li><a href="query_2_f.php">Query f</a></li>
               </ul>
@@ -48,46 +48,33 @@
   </header>
   <section class="container content">
     <header class="jumbotron subhead" id="overview">
-      <h1>Query d, Deliverable 2</h1>
-      <p class="lead">Print the names of  coaches who participated  in  both  leagues (NBA  and ABA).</p>
+      <h1>Query b, Deliverable 2</h1>
+      <p class="lead">Print the last  and first name  of  those who participated  in  NBA as  both  a player  and a coach in  the same  
+season.</p>
       <pre>
- SELECT PlayerExt.firstName, PlayerExt.lastName
-   FROM (
-     SELECT p1.firstName, p1.lastName, RegSeason.year
-     FROM Player p1
-     INNER JOIN RegSeason
-     ON p1.pid=RegSeason.pid
-     GROUP BY p1.pid) AS PlayerExt ,(
-     SELECT c1.firstName, c1.lastName, CoachSeason.year
-     FROM Coach c1
-     INNER JOIN CoachSeason
-     ON c1.cid=CoachSeason.cid
-     GROUP BY c1.cid) AS CoachExt
-   WHERE 
-     CoachExt.year = PlayerExt.year AND 
-     PlayerExt.firstname = CoachExt.firstname AND
-     PlayerExt.lastname = CoachExt.lastname
+SELECT Distinct p.firstname, p.lastname FROM Player p, RegSeason rs
+WHERE p.pid = rs.pid AND
+      rs.league = 'N' AND
+      p.pid IN (SELECT cs.cid FROM CoachSeason cs, TeamStat ts
+                WHERE cs.tid = ts.tid AND
+                      ts.year = rs.year AND
+                      cs.year = ts.year AND
+                      ts.league = 'N')
       </pre>
+
     </header>
     <?php $connection = new DB_Class(); ?>
     <?php $connection->connect() ?>
     <?php $query = "
-                    SELECT PlayerExt.firstName, PlayerExt.lastName
-                      FROM (
-                        SELECT p1.firstName, p1.lastName, RegSeason.year
-                        FROM Player p1
-                        INNER JOIN RegSeason
-                        ON p1.pid=RegSeason.pid
-                        GROUP BY p1.pid) AS PlayerExt ,(
-                        SELECT c1.firstName, c1.lastName, CoachSeason.year
-                        FROM Coach c1
-                        INNER JOIN CoachSeason
-                        ON c1.cid=CoachSeason.cid
-                        GROUP BY c1.cid) AS CoachExt
-                      WHERE 
-                        CoachExt.year = PlayerExt.year AND 
-                        PlayerExt.firstname = CoachExt.firstname AND
-                        PlayerExt.lastname = CoachExt.lastname ";  ?>
+SELECT Distinct p.firstname, p.lastname FROM Player p, RegSeason rs
+WHERE p.pid = rs.pid AND
+      rs.league = 'N' AND
+      p.pid IN (SELECT cs.cid FROM CoachSeason cs, TeamStat ts
+                WHERE cs.tid = ts.tid AND
+                      ts.year = rs.year AND
+                      cs.year = ts.year AND
+                      ts.league = 'N') ";  ?>
+    <p><?php echo $connection->count_results($query); ?> results found.</p>
     <?php $data = $connection->fetch($query); ?>
     <table class="table table-striped">
       <thead>

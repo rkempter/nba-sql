@@ -50,56 +50,93 @@
     <header class="jumbotron subhead" id="overview">
       <h1>Query e, Deliverable 2</h1>
       <p class="lead">Compute the highest scoring and lowest  scoring player  for each  season.</p>
-      <h2>Max</h2>
-      <pre>
- SELECT p.firstName, p.lastName, s.year
+    </header>
+    <?php $connection = new DB_Class(); ?>
+    <?php $connection->connect() ?>
+    <div class="row">
+      <div class="span6">
+        <h2>Max</h2>
+        <pre>
+ SELECT p.firstName, p.lastName, s.year, s.pts
   FROM Player AS p, RegSeason AS s
   WHERE p.pid = s.pid
   GROUP BY s.year DESC, s.pts
   HAVING s.pts >= ALL ( SELECT pts
                           FROM RegSeason
                           WHERE year = s.year)
-
-
-      </pre>
-      <h2>Min</h2>
-      <pre>
-SELECT p.firstName, p.lastName, s.year
+        </pre>
+        <?php $query = "
+      SELECT p.firstName, p.lastName, s.year, s.pts
+        FROM Player AS p, RegSeason AS s
+        WHERE p.pid = s.pid
+        GROUP BY s.year DESC, s.pts
+        HAVING s.pts >= ALL ( SELECT pts
+                              FROM RegSeason
+                              WHERE year = s.year) ";  ?>
+        <?php $data = $connection->fetch($query); ?>
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>Firstname</th>
+              <th>Lastname</th>
+              <th>Year</th>
+              <th>Pts</th>
+            </tr>
+          </thead>
+          <tbody>
+          <?php foreach ($data as $row): ?>
+            <tr>
+              <td><?php echo $row[0]; ?></td>
+              <td><?php echo $row[1]; ?></td>
+              <td><?php echo $row[2]; ?></td>
+              <td><?php echo $row[3]; ?></td>
+            </tr>
+          <?php endforeach ?>
+          </tbody>
+        </table>
+      </div>
+      <div class="span6">
+        <h2>Min</h2>
+        <pre>
+SELECT p.firstName, p.lastName, s.year, s.pts
   FROM Player AS p, RegSeason AS s
   WHERE p.pid = s.pid
   GROUP BY s.year DESC, s.pts
   HAVING s.pts <= ALL ( SELECT pts
-                          FROM RegSeason
-                          WHERE year = s.year)
-      </pre>
-    </header>
-    <?php $connection = new DB_Class(); ?>
-    <?php $connection->connect() ?>
-    <?php $query = "
-                      SELECT p.firstName, p.lastName, s.year
-  FROM Player AS p, RegSeason AS s
-  WHERE p.pid = s.pid
-  GROUP BY s.year, s.score
-  HAVING s.score >= ALL ( SELECT score
-                          FROM RegSeason
-                          WHERE year = s.year) ";  ?>
-    <?php $data = $connection->fetch($query); ?>
-    <table class="table table-striped">
-      <thead>
-        <tr>
-          <th>Firstname</th>
-          <th>Lastname</th>
-        </tr>
-      </thead>
-      <tbody>
-      <?php foreach ($data as $row): ?>
-        <tr>
-          <td><?php echo $row[0]; ?></td>
-          <td><?php echo $row[1]; ?></td>
-        </tr>
-      <?php endforeach ?>
-      </tbody>
-    </table>
+                        FROM RegSeason
+                        WHERE year = s.year) 
+        </pre>
+        <?php $query = "
+      SELECT p.firstName, p.lastName, s.year, s.pts
+      FROM Player AS p, RegSeason AS s
+      WHERE p.pid = s.pid
+      GROUP BY s.year DESC, s.pts
+      HAVING s.pts <= ALL ( SELECT pts
+                            FROM RegSeason
+                            WHERE year = s.year) ";  ?>
+        <?php $data = $connection->fetch($query); ?>
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>Firstname</th>
+              <th>Lastname</th>
+              <th>Year</th>
+              <th>Pts</th>
+            </tr>
+          </thead>
+          <tbody>
+          <?php foreach ($data as $row): ?>
+            <tr>
+              <td><?php echo $row[0]; ?></td>
+              <td><?php echo $row[1]; ?></td>
+              <td><?php echo $row[2]; ?></td>
+              <td><?php echo $row[3]; ?></td>
+            </tr>
+          <?php endforeach ?>
+          </tbody>
+        </table>
+      </div>
+    </div>
     <?php $connection->close_connection(); ?>
   </section>
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>

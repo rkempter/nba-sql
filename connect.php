@@ -25,10 +25,17 @@ mysql_close($link);
 $sql_query1 = "
   SELECT p.firstname, p.lastName
   FROM Coach c, Player p
-  WHERE p.firstname = c.firstname AND
-        p.lastname = c.lastname 
+  WHERE p.pid = c.cid AND
+  league = 'N'
 "; // Working, checked!!
 $sql_query2 = "
+  SELECT p.firstname, p.lastName
+  FROM Coach c, Player p, RegSeason ps, C
+  WHERE p.pid = c.cid AND
+  league = 'N'
+
+
+
   SELECT PlayerExt.firstName, PlayerExt.lastName
   FROM (
     SELECT p1.firstName, p1.lastName, RegSeason.year
@@ -43,9 +50,15 @@ $sql_query2 = "
     GROUP BY c1.id AS CoachExt)
   WHERE 
     CoachExt.year = PlayerExt.year AND 
-    PlayerExt.firstname = CoachExt.firstname AND
-    PlayerExt.lastname = CoachExt.lastname
+    PlayerE
+
 ";
+
+pid,year,tid,league,GP,minutes,pts,dreb,oreb,reb,asts,stl,blk,turnover,pf,fga,fgm,fta,ftm,tpa,tpm
+
+
+
+
 $sql_query3 = "
   SELECT college
   FROM Player
@@ -103,7 +116,7 @@ $sql_query6_min = "
   SELECT p1.lastName, p1.firstName, s1.year
   FROM Player p1, PlayoffSeason s1
   WHERE p1.pid = s1.pid AND
-        p1.birthdata >= ALL ( SELECT MAX(p.birthdata)
+        p1.birthdata <= ALL ( SELECT MAX(p.birthdata)
                               FROM Player p, PlayoffSeason s
                               WHERE p.pid = s.pid AND
                                     s.year = s1.year)

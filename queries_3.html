@@ -1,0 +1,232 @@
+Query a
+------------
+SELECT draftedFrom, COUNT(*) as nbr 
+FROM Draft 
+WHERE league = 'N' 
+GROUP BY draftedFrom 
+ORDER BY nbr DESC
+
+Query b
+------------
+SELECT draftedFrom, COUNT(*) as nbr 
+FROM Draft 
+WHERE league = 'A' 
+GROUP BY draftedFrom 
+ORDER BY nbr DESC
+
+Query c
+------------
+
+SELECT AVG(heightFeet) as avg_height_feet, AVG(heightInches) as avg_height_inches, AVG(weight) as avg_weight, rs1.year <!-- Change table format of height & age -->
+FROM Player p, RegSeason rs1
+WHERE rs1.pid = p.pid AND
+      p.pid IN (SELECT rs.pid
+                FROM RegSeason rs
+                WHERE (rs.tid, rs.year) IN (SELECT cs.tid, cs.year
+                                FROM CoachSeason cs
+                                  WHERE cs.cid IN (SELECT cc.cid
+                                        FROM CoachCareer cc
+                                            WHERE cc.seasonWins > 1000 AND
+                                                  cc.seasonWins / (cc.seasonWins + cc.seasonLosses) > 0.7))) <!-- Change parameters -->
+GROUP BY rs1.year
+
+
+Query d
+------------
+
+SELECT p.lastname, p.firstname
+FROM Player p, RegCareer rc, PlayoffCareer pc
+WHERE p.pid = rc.pid AND
+      p.pid = pc.pid AND
+      rc.reb + pc.reb > 12000 AND
+      CONCAT(p.heightFeet,'.',p.heightInches/12*10) > (SELECT AVG(CONCAT(p1.heightFeet,'.',p1.heightInches/12*10))
+                                                       FROM Player p2, RegCareer rc2, PlayoffCareer pc2
+                                                       WHERE p2.pid = rc2.pid AND
+                                                           p2.pid = pc2.pid AND
+                                                           rc2.reb + pc2.reb > 10000)
+
+Query e
+------------
+
+SELECT DISTINCT p.firstname, p.lastname
+FROM Player p, RegSeason rs1, RegSeason rs2
+WHERE p.pid = rs1.pid AND
+    p.pid = rs2.pid AND
+    rs1.tid IN (SELECT tid
+           FROM Team
+           WHERE location = 'Chicago') AND
+    rs2.tid IN (SELECT tid
+           FROM Team
+           WHERE location = 'Houston')
+
+SELECT DISTINCT p.firstName, p.lastName
+FROM Team t, Player p, RegSeason rs, Team t1, Player p1, RegSeason rs1
+WHERE t.location = 'Houston' AND t1.location = 'Chicago'
+AND rs.tid = t.tid   AND rs1.tid = t1.tid
+AND rs.pid = p.pid   AND rs1.pid = p1.pid
+UNION
+SELECT DISTINCT p.firstName, p.lastName
+FROM Team t, Player p, PlayoffSeason ps, Team t1, Player p1, PlayoffSeason ps1
+WHERE t.location = 'Houston' AND t1.location = 'Chicago'
+AND ps.tid = t.tid   AND ps1.tid = t1.tid
+AND ps.pid = p.pid   AND ps1.pid = p1.pid;
+
+Query f
+------------
+
+SELECT p.lastname, p.firstname, (rc.pts + pc.pts) AS points
+FROM Player p, RegCareer rc, PlayoffCareer pc
+WHERE p.pid = rc.pid AND
+    p.pid = pc.pid
+ORDER BY (rc.pts + pc.pts) DESC
+LIMIT 20
+
+
+Query g
+------------
+
+SELECT Distinct c.lastname, c.firstname, (cs.seasonWins / (cs.seasonWins + cs.seasonLosses)) as points, cs.year
+FROM Coach c, CoachSeason cs
+WHERE c.cid = cs.cid
+GROUP BY cs.year
+HAVING COUNT(*) > 1
+
+(LAST PART IS MISSING)
+
+Query h
+------------
+
+SELECT p.lastname, p.firstname
+FROM Player p, RegCareer rc
+WHERE p.pid = rc.pid
+ORDER BY ((rc.pts+rc.reb+rc.asts+rc.stl+rc.blk-rc.ftm-rc.fgm-rc.turnover)/ rc.minutes) DESC
+LIMIT 30
+
+Query i
+------------
+
+SELECT p.lastname, p.firstname
+FROM Player p, PlayoffCareer pc
+WHERE p.pid = pc.pid
+ORDER BY ((pc.pts+pc.reb+pc.asts+pc.stl+pc.blk-pc.ftm-pc.fgm-pc.turnover)/ pc.minutes) DESC
+LIMIT 10
+
+Query j
+------------
+
+Query k
+------------
+
+SELECT SUM(((ps.pts+rs.pts)+(ps.reb+rs.reb)+(ps.asts+rs.asts)+(ps.stl+rs.stl)+(ps.blk+rs.blk)-(ps.ftm+rs.ftm)-(ps.fgm+rs.fgm)-(ps.turnover+rs.turnover))/ (ps.minutes+rs.minutes)) as tendex
+FROM Player p, PlayoffSeason ps, RegSeason rs
+WHERE p.pid = ps.pid AND
+    p.pid = rs.pid AND
+    (ps.tid, ps.league, ps.year) = ('ATL', 'N', 1974) AND
+    (rs.tid, rs.league, rs.year) = ('ATL', 'N', 1974)
+ORDER BY (((ps.pts+rs.pts)+(ps.reb+rs.reb)+(ps.asts+rs.asts)+(ps.stl+rs.stl)+(ps.blk+rs.blk)-(ps.ftm+rs.ftm)-(ps.fgm+rs.fgm)-(ps.turnover+rs.turnover))/ (ps.minutes+rs.minutes)) DESC
+LIMIT 5
+
+(part of it with mistakes)
+
+Query l
+------------
+
+Scorers:
+
+SELECT Distinct p1.college
+FROM Player p1
+WHERE p1.college IS NOT NULL
+ORDER BY (
+  SELECT AVG(rc.pts+pc.pts) AS points
+  FROM Player p, PlayoffCareer pc, RegCareer rc
+  WHERE rc.pid = p.pid AND
+      pc.pid = p.pid AND
+      p.college = p1.college  
+  ORDER BY (rc.pts+pc.pts) DESC
+  LIMIT 5) DESC
+LIMIT 10
+
+Rebounds:
+
+SELECT Distinct p1.college
+FROM Player p1
+WHERE p1.college IS NOT NULL
+ORDER BY (
+  SELECT AVG(rc.reb+pc.reb) AS rebounts
+  FROM Player p, PlayoffCareer pc, RegCareer rc
+  WHERE rc.pid = p.pid AND
+      pc.pid = p.pid AND
+      p.college = p1.college  
+  ORDER BY (rc.reb+pc.reb) DESC
+  LIMIT 5) DESC
+LIMIT 10
+
+Blockers:
+
+SELECT Distinct p1.college
+FROM Player p1
+WHERE p1.college IS NOT NULL
+ORDER BY (
+  SELECT AVG(rc.blk+pc.blk) AS blocks
+  FROM Player p, PlayoffCareer pc, RegCareer rc
+  WHERE rc.pid = p.pid AND
+      pc.pid = p.pid AND
+      p.college = p1.college  
+  ORDER BY (rc.blk+pc.blk) DESC
+  LIMIT 5) DESC
+LIMIT 10
+
+Query l
+------------
+
+SELECT AVG(rc.pts+pc.pts) AS points
+FROM Player p, PlayoffCareer pc, RegCareer rc
+WHERE rc.pid = p.pid AND
+    pc.pid = p.pid AND
+    p.college = 'Duke University' 
+ORDER BY (rc.pts+pc.pts) DESC
+LIMIT 5
+
+(HOW TO GENERALIZE??????)
+
+
+Query m
+------------
+
+SELECT Distinct t.tid, t.name, ts.won, ts.year
+FROM Team t, TeamStat ts
+WHERE (ts.tid, ts.league) = (t.tid, t.league) AND
+    (ts.tid, ts.year) IN (SELECT cs.tid, cs.year
+              FROM CoachSeason cs
+              WHERE orderTeam = 2)
+ORDER BY ts.won DESC
+LIMIT 1
+
+SELECT Distinct t.tid, t.name, ts.won, ts.year
+FROM Team t, TeamStat ts
+WHERE (ts.tid, ts.league) = (t.tid, t.league) AND
+    (ts.tid, ts.year) IN (SELECT cs.tid, cs.year
+              FROM CoachSeason cs
+              WHERE orderTeam = 3)
+ORDER BY ts.won DESC
+LIMIT 1
+
+SELECT Distinct t.tid, t.name, ts.won, ts.year
+FROM Team t, TeamStat ts
+WHERE (ts.tid, ts.league) = (t.tid, t.league) AND
+    (ts.tid, ts.year) IN (SELECT cs.tid, cs.year
+              FROM CoachSeason cs
+              WHERE orderTeam = 4)
+ORDER BY ts.won DESC
+LIMIT 1
+
+Query n
+------------
+
+SELECT Distinct p.firstname, p.lastname
+FROM Player p, Draft d
+WHERE d.pid = p.pid AND
+    d.pid IS NOT NULL AND
+    (d.tid, d.league) NOT IN (SELECT rs.tid, rs.league
+                  FROM RegSeason rs
+                  WHERE rs.pid = p.pid)

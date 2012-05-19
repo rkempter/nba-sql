@@ -51,43 +51,30 @@
       <h1>Query d, Deliverable 2</h1>
       <p class="lead">Print the names of  coaches who participated  in  both  leagues (NBA  and ABA).</p>
       <pre>
- SELECT PlayerExt.firstName, PlayerExt.lastName
-   FROM (
-     SELECT p1.firstName, p1.lastName, RegSeason.year
-     FROM Player p1
-     INNER JOIN RegSeason
-     ON p1.pid=RegSeason.pid
-     GROUP BY p1.pid) AS PlayerExt ,(
-     SELECT c1.firstName, c1.lastName, CoachSeason.year
-     FROM Coach c1
-     INNER JOIN CoachSeason
-     ON c1.cid=CoachSeason.cid
-     GROUP BY c1.cid) AS CoachExt
-   WHERE 
-     CoachExt.year = PlayerExt.year AND 
-     PlayerExt.firstname = CoachExt.firstname AND
-     PlayerExt.lastname = CoachExt.lastname
+SELECT firstName, c.lastName
+FROM Coach c, TeamStat ts1, TeamStat ts2, CoachSeason cs
+WHERE c.cid = cs.cid AND
+cs.tid = ts1.tid AND
+cs.year = ts1.year AND
+cs.tid = ts2.tid AND
+cs.year = ts2.year AND
+ts1.league = 'A' AND
+ts2.league = 'N'
       </pre>
     </header>
     <?php $connection = new DB_Class(); ?>
     <?php $connection->connect() ?>
     <?php $query = "
-                    SELECT PlayerExt.firstName, PlayerExt.lastName
-                      FROM (
-                        SELECT p1.firstName, p1.lastName, RegSeason.year
-                        FROM Player p1
-                        INNER JOIN RegSeason
-                        ON p1.pid=RegSeason.pid
-                        GROUP BY p1.pid) AS PlayerExt ,(
-                        SELECT c1.firstName, c1.lastName, CoachSeason.year
-                        FROM Coach c1
-                        INNER JOIN CoachSeason
-                        ON c1.cid=CoachSeason.cid
-                        GROUP BY c1.cid) AS CoachExt
-                      WHERE 
-                        CoachExt.year = PlayerExt.year AND 
-                        PlayerExt.firstname = CoachExt.firstname AND
-                        PlayerExt.lastname = CoachExt.lastname ";  ?>
+                    SELECT firstName, c.lastName
+FROM Coach c, TeamStat ts1, TeamStat ts2, CoachSeason cs
+WHERE c.cid = cs.cid AND
+cs.tid = ts1.tid AND
+cs.year = ts1.year AND
+cs.tid = ts2.tid AND
+cs.year = ts2.year AND
+ts1.league = 'A' AND
+ts2.league = 'N' ";  ?>
+    <p><?php echo $connection->count_results($query); ?> results found.</p>
     <?php $data = $connection->fetch($query); ?>
     <table class="table table-striped">
       <thead>
@@ -97,12 +84,19 @@
         </tr>
       </thead>
       <tbody>
-      <?php foreach ($data as $row): ?>
+      <?php if ($data): ?>
+        <?php foreach ($data as $row): ?>
         <tr>
           <td><?php echo $row[0]; ?></td>
           <td><?php echo $row[1]; ?></td>
         </tr>
-      <?php endforeach ?>
+        <?php endforeach ?>
+      <?php else: ?>
+        <tr>
+          <td>No results found</td>
+          <td></td>
+        </tr>
+      <?php endif ?>
       </tbody>
     </table>
     <?php $connection->close_connection(); ?>

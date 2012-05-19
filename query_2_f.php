@@ -50,37 +50,97 @@
     <header class="jumbotron subhead" id="overview">
       <h1>Query f, Deliverable 2</h1>
       <p class="lead">Print the names of  oldest  and youngest  player  that  have  participated  in  the playoffs  for each  season.</p>
-      <pre>
-SELECT p.firstname, p.lastName
-FROM Coach c, Player p
-WHERE p.firstname = c.firstname AND
-      p.lastname = c.lastname 
-      </pre>
     </header>
     <?php $connection = new DB_Class(); ?>
     <?php $connection->connect() ?>
-    <?php $query = "
-                    SELECT p.firstname, p.lastName
-                    FROM Coach c, Player p
-                    WHERE p.firstname = c.firstname AND
-                          p.lastname = c.lastname ";  ?>
-    <?php $data = $connection->fetch($query); ?>
-    <table class="table table-striped">
-      <thead>
-        <tr>
-          <th>Firstname</th>
-          <th>Lastname</th>
-        </tr>
-      </thead>
-      <tbody>
-      <?php foreach ($data as $row): ?>
-        <tr>
-          <td><?php echo $row[0]; ?></td>
-          <td><?php echo $row[1]; ?></td>
-        </tr>
-      <?php endforeach ?>
-      </tbody>
-    </table>
+    <div class="row">
+      <div class="span6">
+        <h2>Oldest</h2>
+        <pre>
+SELECT p.firstname, p.lastname, ps.year
+FROM Player p, PlayoffSeason ps
+WHERE p.pid = ps.pid
+GROUP BY ps.year, p.birthdata
+HAVING p.birthdata <= ALL (
+  SELECT p1.birthdata FROM
+  Player p1, PlayoffSeason ps1
+  WHERE ps1.year = ps.year 
+  AND p1.pid = ps1.pid)
+        </pre>
+        <?php $query = "
+SELECT p.firstname, p.lastname, ps.year
+FROM Player p, PlayoffSeason ps
+WHERE p.pid = ps.pid
+GROUP BY ps.year DESC, p.birthdata
+HAVING p.birthdata <= ALL (
+  SELECT p1.birthdata FROM
+  Player p1, PlayoffSeason ps1
+  WHERE ps1.year = ps.year 
+  AND p1.pid = ps1.pid) ";  ?>
+        <?php $data = $connection->fetch($query); ?>
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>Firstname</th>
+              <th>Lastname</th>
+              <th>Year</th>
+            </tr>
+          </thead>
+          <tbody>
+          <?php foreach ($data as $row): ?>
+            <tr>
+              <td><?php echo $row[0]; ?></td>
+              <td><?php echo $row[1]; ?></td>
+              <td><?php echo $row[2]; ?></td>
+            </tr>
+          <?php endforeach ?>
+          </tbody>
+        </table>
+      </div>
+      <div class="span6">
+        <h2>Youngest</h2>
+        <pre>
+SELECT p.firstname, p.lastname, ps.year
+FROM Player p, PlayoffSeason ps
+WHERE p.pid = ps.pid
+GROUP BY ps.year, p.birthdata
+HAVING p.birthdata >= ALL (
+  SELECT p1.birthdata 
+  FROM Player p1, PlayoffSeason ps1
+  WHERE ps1.year = ps.year 
+  AND p1.pid = ps1.pid)
+        </pre>
+        <?php $query = "
+SELECT p.firstname, p.lastname, ps.year
+FROM Player p, PlayoffSeason ps
+WHERE p.pid = ps.pid
+GROUP BY ps.year DESC, p.birthdata
+HAVING p.birthdata >= ALL (
+  SELECT p1.birthdata 
+  FROM Player p1, PlayoffSeason ps1
+  WHERE ps1.year = ps.year 
+  AND p1.pid = ps1.pid) ";  ?>
+        <?php $data = $connection->fetch($query); ?>
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>Firstname</th>
+              <th>Lastname</th>
+              <th>Year</th>
+            </tr>
+          </thead>
+          <tbody>
+          <?php foreach ($data as $row): ?>
+            <tr>
+              <td><?php echo $row[0]; ?></td>
+              <td><?php echo $row[1]; ?></td>
+              <td><?php echo $row[2]; ?></td>
+            </tr>
+          <?php endforeach ?>
+          </tbody>
+        </table>
+      </div>
+    </div>
     <?php $connection->close_connection(); ?>
   </section>
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>

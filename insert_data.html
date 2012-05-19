@@ -21,7 +21,7 @@
               <a href="./index.php">Home</a>
             </li>
             <li class="">
-              <a href="file.html">Search for Keyword</a>
+              <a href="search.php">Search for Keyword</a>
             </li>
             <li class="">
               <a href="insert_data.html">Insert elements</a>
@@ -29,12 +29,12 @@
             <li class="dropdown">
               <a class="dropdown-toggle" data-toggle="dropdown" href="#">Deliverable 2 <b class="caret"></b></a>
               <ul class="dropdown-menu">
-                <li><a href="query_a.html">Query a</a></li>
-                <li><a href="query_b.html">Query b</a></li>
-                <li><a href="query_c.html">Query c</a></li>
-                <li><a href="query_d.html">Query d</a></li>
-                <li><a href="query_e.html">Query e</a></li>
-                <li><a href="query_f.html">Query f</a></li>
+                <li><a href="query_2_a.php">Query a</a></li>
+                <li><a href="query_2_b.php">Query b</a></li>
+                <li><a href="query_2_c.php">Query c</a></li>
+                <li><a href="query_2_d.php">Query d</a></li>
+                <li><a href="query_2_e.php">Query e</a></li>
+                <li><a href="query_2_f.php">Query f</a></li>
               </ul>
             </li>
           </ul>
@@ -58,7 +58,7 @@
     </ul>
     <div class="tab-content">
       <div class="tab-pane active" id="player">
-        <form class="form-horizontal">
+        <form class="form-horizontal" action="insert.php?type=player" method="post">
           <fieldset>
             <legend>Insert a player</legend>
             <div class="control-group">
@@ -113,20 +113,20 @@
       </div>
       <!-- Coach Tab -->
       <div class="tab-pane" id="coach">
-        <form class="form-horizontal">
+        <form class="form-horizontal" action="insert.php?type=Coach" method="POST">
           <fieldset>
             <legend>Insert a coach</legend>
             <div class="control-group">
               <label class="control-label" for="firstname">First name</label>
               <div class="controls">
-                <input type="text" class="input-xlarge" id="firstname">
+                <input type="text" class="input-xlarge" name="firstname" id="firstname">
                 <p class="help-block">First name is required!</p>
               </div>
             </div>
             <div class="control-group">
               <label class="control-label" for="lastname">Last name</label>
               <div class="controls">
-                <input type="text" class="input-xlarge" id="lastname">
+                <input type="text" class="input-xlarge" name="lastname" id="lastname">
                 <p class="help-block">Last name is required</p>
               </div>
             </div>
@@ -161,7 +161,6 @@
                 <select name="league" id="league">
                   <option value="nba">NBA</option>
                   <option value="aba">ABA</option>
-                  <option value="ncaa">NCAA</option>
                 </select>
                 <p class="help-block">In addition to freeform text, any HTML5 text-based input appears like so.</p>
               </div>
@@ -174,10 +173,8 @@
         </form>
       </div>
       <div class="tab-pane" id="draft">
-        ...
       </div>
       <div class="tab-pane" id="allstar">
-        ...
       </div>
       <div class="tab-pane" id="p_stat">
         <form class="form-horizontal">
